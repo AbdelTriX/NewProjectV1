@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UsersAdapter extends BaseAdapter {
+    final static int DOUBLE_CLICK_TIMEOUT = 500;
+
     ArrayList<User> users;
     LayoutInflater inflater;
     Context mContext;
@@ -67,15 +69,22 @@ public class UsersAdapter extends BaseAdapter {
                 return false;
             }
         });
-        
+
+
         convertView.setOnTouchListener(new View.OnTouchListener() {
+            long lastClickTime = 0;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Toast.makeText(mContext, "Down", Toast.LENGTH_SHORT).show();
-                }
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Toast.makeText(mContext, "up", Toast.LENGTH_SHORT).show();
+                    long clickTime = System.currentTimeMillis();
+
+                    if (clickTime - lastClickTime <= DOUBLE_CLICK_TIMEOUT){
+                        Toast.makeText(mContext, "Doube Click", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        lastClickTime = clickTime;
+                    }
+
                 }
                 return true;
             }

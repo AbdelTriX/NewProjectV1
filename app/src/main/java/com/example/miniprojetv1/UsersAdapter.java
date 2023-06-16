@@ -48,9 +48,12 @@ public class UsersAdapter extends BaseAdapter {
         TextView tvUserItmCity = convertView.findViewById(R.id.tvUserItmCity);
 
         User user = users.get(position);
+        int id = position + 1; // Auto-incremented ID starting from 1
+
+
         tvUserItmFullName.setText(user.fullName());
         tvUserItmCity.setText(user.getCity());
-        tvUserItmGender.setText("#"+user.getId());
+        tvUserItmGender.setText("#"+id);
 
         if (user.getGender().equalsIgnoreCase("male")) {
             convertView.setBackgroundColor(convertView.getResources().getColor(R.color.primary_color));

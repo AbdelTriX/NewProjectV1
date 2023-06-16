@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +53,7 @@ public class UsersAdapter extends BaseAdapter {
 
         TextView tvUserItmFullName = convertView.findViewById(R.id.tvUserItmFullName);
         TextView tvUserItmCity = convertView.findViewById(R.id.tvUserItmCity);
+        ImageView ivUserItemCheck = convertView.findViewById(R.id.ivUserItmChecked);
 
         User user = users.get(position);
         tvUserItmFullName.setText(user.fullName());
@@ -79,7 +81,7 @@ public class UsersAdapter extends BaseAdapter {
                     long clickTime = System.currentTimeMillis();
 
                     if (clickTime - lastClickTime <= DOUBLE_CLICK_TIMEOUT){
-                        Toast.makeText(mContext, "Doube Click", Toast.LENGTH_SHORT).show();
+                        ivUserItemCheck.setVisibility(ivUserItemCheck.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
                     }
                     else {
                         lastClickTime = clickTime;

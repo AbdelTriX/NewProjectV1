@@ -17,7 +17,6 @@ import java.util.List;
 public class UsersAdapter extends BaseAdapter {
     ArrayList<User> users;
     LayoutInflater inflater;
-    Context mContext;
 
     public UsersAdapter(Context context, ArrayList<User> users) {
         this.users = users;
@@ -48,11 +47,16 @@ public class UsersAdapter extends BaseAdapter {
         TextView tvUserItmGender = convertView.findViewById(R.id.tvUserItmGender);
         TextView tvUserItmCity = convertView.findViewById(R.id.tvUserItmCity);
 
-        tvUserItmFullName.setText(users.get(position).fullName());
-        tvUserItmCity.setText(users.get(position).getCity());
-        tvUserItmGender.setText(users.get(position).getGender());
+        User user = users.get(position);
+        tvUserItmFullName.setText(user.fullName());
+        tvUserItmCity.setText(user.getCity());
+        tvUserItmGender.setText("#"+user.getId());
 
-
+        if (user.getGender().equalsIgnoreCase("male")) {
+            convertView.setBackgroundColor(convertView.getResources().getColor(R.color.primary_color));
+        } else if (user.getGender().equalsIgnoreCase("female")) {
+            convertView.setBackgroundColor(convertView.getResources().getColor(R.color.baby_pink));
+        }
 
         return convertView;
     }

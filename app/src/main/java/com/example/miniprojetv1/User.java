@@ -4,12 +4,23 @@ import androidx.annotation.NonNull;
 
 public class User {
     private String firstName, lastNmae, gender, city;
+    private static int nextId = 1;
+    private int id;
 
     public User(String firstName, String lastNmae, String gender, String city) {
+        this.id = nextId++;
         this.firstName = firstName;
         this.lastNmae = lastNmae;
         this.gender = gender;
         this.city = city;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {

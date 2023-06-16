@@ -1,12 +1,14 @@
 package com.example.miniprojetv1;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,17 +50,19 @@ public class UsersAdapter extends BaseAdapter {
 
         TextView tvUserItmFullName = convertView.findViewById(R.id.tvUserItmFullName);
         TextView tvUserItmCity = convertView.findViewById(R.id.tvUserItmCity);
-        Button btnDetails = convertView.findViewById(R.id.btnDetails);
+        ImageButton btnDetails = convertView.findViewById(R.id.btnDetails);
 
         User user = users.get(position);
         tvUserItmFullName.setText(user.fullName());
         tvUserItmCity.setText(user.getCity());
 
         btnDetails.setOnClickListener(v -> {
-            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setTitle(String.format("Details of user %d", position +1))
-                    .setMessage(user.toString())
-                    .show();
+            Intent intent = new Intent(mContext, DisplayUserInfo.class);
+            intent.putExtra("firstName",user.getFirstName());
+            intent.putExtra("lastName",user.getLastNmae());
+            intent.putExtra("city",user.getCity());
+            intent.putExtra("gender",user.getGender());
+            mContext.startActivity(intent);
         });
 
 

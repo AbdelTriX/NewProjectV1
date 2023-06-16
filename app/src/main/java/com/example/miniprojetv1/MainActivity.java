@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if (v.getId() == R.id.btnLoadUsers) {
             UsersAdapter usersAdapter = new UsersAdapter(this, getUsers());
-
             lvUsers.setAdapter(usersAdapter);
 
         } else if (v.getId() == R.id.btnQuit) {

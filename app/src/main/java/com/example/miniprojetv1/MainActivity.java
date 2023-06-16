@@ -35,19 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnQuit.setOnClickListener(this);
         btnLoadUsers.setOnClickListener(this);
 
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Ahmed");
-        names.add("Mohamed");
-        names.add("Islam");
-
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnLoadUsers) {
-            ArrayAdapter<User> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, getUsers());
+            UsersAdapter usersAdapter = new UsersAdapter(this, getUsers());
 
-            lvUsers.setAdapter(adapter);
+            lvUsers.setAdapter(usersAdapter);
 
         } else if (v.getId() == R.id.btnQuit) {
             finish();

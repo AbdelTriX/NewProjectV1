@@ -32,7 +32,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnLoadUsers) {
-            Toast.makeText(this, "Load users", Toast.LENGTH_SHORT).show();
+            InputStream inputStream = getResources().openRawResource(R.raw.users);
+            try {
+                Toast.makeText(this, Character.toString((char) inputStream.read()), Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         } else if (v.getId() == R.id.btnQuit) {
             finish();
         }

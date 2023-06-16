@@ -2,12 +2,14 @@ package com.example.miniprojetv1;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -63,6 +65,19 @@ public class UsersAdapter extends BaseAdapter {
                         .show();
 
                 return false;
+            }
+        });
+        
+        convertView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Toast.makeText(mContext, "Down", Toast.LENGTH_SHORT).show();
+                }
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Toast.makeText(mContext, "up", Toast.LENGTH_SHORT).show();
+                }
+                return true;
             }
         });
 

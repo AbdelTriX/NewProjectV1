@@ -59,34 +59,40 @@ public class UsersAdapter extends BaseAdapter {
         tvUserItmFullName.setText(user.fullName());
         tvUserItmCity.setText(user.getCity());
 
-        convertView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle(String.format("Details of user %d", position +1))
-                        .setMessage(user.toString())
-                        .show();
-
-                return false;
-            }
-        });
+//        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//
+//                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                builder.setTitle(String.format("Details of user %d", position +1))
+//                        .setMessage(user.toString())
+//                        .show();
+//
+//                return false;
+//            }
+//        });
 
 
         convertView.setOnTouchListener(new View.OnTouchListener() {
-            long lastClickTime = 0;
+            private long startTime;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    long clickTime = System.currentTimeMillis();
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        long endTime = System.currentTimeMillis();
+                        long clickDuration = endTime - startTime;
 
-                    if (clickTime - lastClickTime <= DOUBLE_CLICK_TIMEOUT){
-                        ivUserItemCheck.setVisibility(ivUserItemCheck.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
-                    }
-                    else {
-                        lastClickTime = clickTime;
-                    }
-
+                        if (clickDuration >= 1000 && clickDuration <= 2000) {
+                            // Show toast message when touch duration is between 1 and 2 seconds
+                            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                            builder.setTitle(String.format("Details of user %d", position +1))
+                                    .setMessage(user.toString())
+                                    .show();
+                        }
+                        break;
+                    case MotionEvent.ACTION_DOWN:
+                        startTime = System.currentTimeMillis();
+                        break;
                 }
                 return true;
             }

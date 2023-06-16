@@ -50,13 +50,14 @@ public class UsersAdapter extends BaseAdapter {
         TextView tvUserItmCity = convertView.findViewById(R.id.tvUserItmCity);
         Button btnDetails = convertView.findViewById(R.id.btnDetails);
 
-        tvUserItmFullName.setText(users.get(position).fullName());
-        tvUserItmCity.setText(users.get(position).getCity());
+        User user = users.get(position);
+        tvUserItmFullName.setText(user.fullName());
+        tvUserItmCity.setText(user.getCity());
 
         btnDetails.setOnClickListener(v -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-            builder.setTitle("Title")
-                    .setMessage("msg")
+            builder.setTitle(String.format("Details of user %d", position +1))
+                    .setMessage(user.toString())
                     .show();
         });
 

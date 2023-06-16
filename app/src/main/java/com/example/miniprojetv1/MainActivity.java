@@ -35,10 +35,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             try {
                 InputStream inputStream = getAssets().open("users.json");
-                Toast.makeText(this, Character.toString((char) inputStream.read()), Toast.LENGTH_SHORT).show();
+                int code;
+                StringBuilder stringBuilder = new StringBuilder();
+                String jsonString;
+
+                code = inputStream.read();
+                while (code != -1) {
+                    stringBuilder.append((char) code);
+
+                    code = inputStream.read();
+                }
+                jsonString = stringBuilder.toString();
+                Toast.makeText(this, jsonString, Toast.LENGTH_SHORT).show();
 
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                e.printStackTrace();
             }
         } else if (v.getId() == R.id.btnQuit) {
             finish();

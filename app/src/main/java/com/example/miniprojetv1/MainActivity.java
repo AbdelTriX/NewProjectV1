@@ -3,12 +3,10 @@ package com.example.miniprojetv1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -20,7 +18,8 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    Button btnLoadUsers, btnQuit;
+    Button btnLoadUsers;
+    TextView tvQuit;
     ListView lvUsers;
 
     @Override
@@ -29,10 +28,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         btnLoadUsers = findViewById(R.id.btnLoadUsers);
-        btnQuit = findViewById(R.id.btnQuit);
+        tvQuit = findViewById(R.id.tvQuit);
         lvUsers = findViewById(R.id.lvUsers);
 
-        btnQuit.setOnClickListener(this);
+        tvQuit.setOnClickListener(this);
         btnLoadUsers.setOnClickListener(this);
 
     }
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             lvUsers.setAdapter(usersAdapter);
 
-        } else if (v.getId() == R.id.btnQuit) {
+        } else if (v.getId() == R.id.tvQuit) {
             finish();
         }
     }

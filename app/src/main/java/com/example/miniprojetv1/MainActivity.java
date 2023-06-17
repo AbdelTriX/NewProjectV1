@@ -1,8 +1,12 @@
 package com.example.miniprojetv1;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -21,6 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLoadUsers;
     TextView tvQuit;
     ListView lvUsers;
+    @SuppressLint("ClickableViewAccessibility")
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +39,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         tvQuit.setOnClickListener(this);
         btnLoadUsers.setOnClickListener(this);
 
+
+        // For swipe
+        GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
+                if (e1.getX() - e2.getX() >= 100) {
+                    finish();
+                }
+
+                return super.onFling(e1, e2, velocityX, velocityY);
+            }
+        });
+        tvQuit.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                gestureDetector.onTouchEvent(event);
+                return false;
+            }
+        });
+
     }
+
 
     @Override
     public void onClick(View v) {

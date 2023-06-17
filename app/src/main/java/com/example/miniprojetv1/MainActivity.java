@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,24 +42,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         // For swipe
-        GestureDetector gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener() {
-            @Override
-            public boolean onFling(@NonNull MotionEvent e1, @NonNull MotionEvent e2, float velocityX, float velocityY) {
-                if (e1.getX() - e2.getX() >= 100) {
-                    finish();
-                }
 
-                return super.onFling(e1, e2, velocityX, velocityY);
+        tvQuit.setOnTouchListener(new OnSwipeTouchListener(this) {
+            @Override
+            public void swipeRight() {
+                Toast.makeText(MainActivity.this, "This action is not yet inplemented !!! if u want to quit the app please" +
+                        "swipe left!", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void swipeLeft() {
+                finish();
             }
         });
-        tvQuit.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                gestureDetector.onTouchEvent(event);
-                return false;
-            }
-        });
-
     }
 
 

@@ -8,7 +8,7 @@ import android.view.View;
 import androidx.annotation.NonNull;
 
 public class OnSwipeTouchListener implements View.OnTouchListener{
-    private final static float THRESHOLD = 100;
+    private final static float THRESHOLD = 50;
     private Context context;
     private GestureDetector gestureDetector;
 

@@ -1,6 +1,8 @@
 package com.example.miniprojetv1;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -63,40 +65,45 @@ public class UsersAdapter extends BaseAdapter {
             @Override
             public boolean onLongClick(View v) {
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                builder.setTitle(String.format("Details of user %d", position +1))
-                        .setMessage(user.toString())
-                        .show();
+//                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                builder.setTitle(String.format("Details of user %d", position +1))
+//                        .setMessage(user.toString())
+//                        .show();
 
                 return false;
             }
         });
 
 
-        convertView.setOnTouchListener(new View.OnTouchListener() {
-            long lastClickTime = 0;
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_UP) {
-                    long clickTime = System.currentTimeMillis();
+        final View finalConvertView = convertView;
+        final int originalColor = convertView.getDrawingCacheBackgroundColor();
+        convertView.setOnTouchListener(new OnSwipeTouchListener(mContext) {
+        @Override
+        public void swipeLeft() {
+            finalConvertView.setBackgroundColor(Color.parseColor("#FFC0CB")); // Pink color
 
-                    if (clickTime - lastClickTime <= DOUBLE_CLICK_TIMEOUT){
-                        ivUserItemCheck.setVisibility(ivUserItemCheck.getVisibility() == View.INVISIBLE ? View.VISIBLE : View.INVISIBLE);
-                    }
-                    else {
-                        lastClickTime = clickTime;
-                    }
+            AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+            builder.setTitle("Confirmation")
+                    .setMessage("Are you sure u want to delete ?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            users.remove(position);
+                            notifyDataSetChanged(); // Refresh the adapter after removing the item
+                            Toast.makeText(mContext, "Deleted", Toast.LENGTH_SHORT).show();
 
+                        }
+                    })
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finalConvertView.setBackgroundColor(originalColor); // Revert to original color
                 }
-                return true;
-            }
-        });
+            })
+                    .show();
 
-
-
-
-
-
+        }
+    });
         return convertView;
     }
 }

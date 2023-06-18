@@ -100,7 +100,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         userName.getString("first"),
                         userName.getString("last"),
                         user.getString("gender"),
-                        user.getString("city")));
+                        user.getString("city"),
+                        user.getString("image")));
             }
         } catch (IOException | JSONException e) {
             e.printStackTrace();

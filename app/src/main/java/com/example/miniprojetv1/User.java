@@ -1,15 +1,26 @@
 package com.example.miniprojetv1;
 
+import android.widget.ImageView;
+
 import androidx.annotation.NonNull;
 
 public class User {
-    private String firstName, lastNmae, gender, city;
+    private String firstName, lastName, gender, city, imageView;
 
-    public User(String firstName, String lastNmae, String gender, String city) {
+    public User(String firstName, String lastName, String gender, String city, String imageView) {
         this.firstName = firstName;
-        this.lastNmae = lastNmae;
+        this.lastName = lastName;
         this.gender = gender;
+        this.imageView = imageView;
         this.city = city;
+    }
+
+    public String getImageView() {
+        return imageView;
+    }
+
+    public void setImageView(String imageView) {
+        this.imageView = imageView;
     }
 
     public String getFirstName() {
@@ -20,12 +31,12 @@ public class User {
         this.firstName = firstName;
     }
 
-    public String getLastNmae() {
-        return lastNmae;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastNmae(String lastNmae) {
-        this.lastNmae = lastNmae;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getGender() {
@@ -45,7 +56,7 @@ public class User {
     }
 
     public String fullName() {
-        return String.format("%s %s", firstName, lastNmae);
+        return String.format("%s %s", firstName, lastName);
     }
 
     @NonNull

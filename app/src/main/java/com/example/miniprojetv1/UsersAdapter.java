@@ -15,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,10 +27,12 @@ public class UsersAdapter extends BaseAdapter {
     ArrayList<User> users;
     LayoutInflater inflater;
     Context mContext;
+    FragmentManager fragmentManager;
 
-    public UsersAdapter(Context context, ArrayList<User> users) {
+    public UsersAdapter(Context context, ArrayList<User> users, FragmentManager fragmentManager) {
         this.users = users;
         this.mContext = context;
+        this.fragmentManager = fragmentManager;
         inflater = LayoutInflater.from(context);
     }
 
@@ -54,6 +58,7 @@ public class UsersAdapter extends BaseAdapter {
         TextView tvUserItmFullName = convertView.findViewById(R.id.tvUserItmFullName);
         TextView tvUserItmCity = convertView.findViewById(R.id.tvUserItmCity);
         ImageView ivUserItemCheck = convertView.findViewById(R.id.ivUserItmChecked);
+        Button btnDetails = convertView.findViewById(R.id.btnDetails);
 
         User user = users.get(position);
         tvUserItmFullName.setText(user.fullName());
@@ -92,8 +97,10 @@ public class UsersAdapter extends BaseAdapter {
             }
         });
 
-
-
+        btnDetails.setOnClickListener(v -> {
+            UserItemDialog userItemDialog = new UserItemDialog(user);
+            userItemDialog.show(fragmentManager, null);
+        });
 
 
 

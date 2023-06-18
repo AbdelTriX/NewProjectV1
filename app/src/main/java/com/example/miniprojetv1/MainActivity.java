@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnLoadUsers) {
-            UsersAdapter usersAdapter = new UsersAdapter(this, getUsers());
+            UsersAdapter usersAdapter = new UsersAdapter(this, getUsers(), getSupportFragmentManager());
 
             lvUsers.setAdapter(usersAdapter);
 

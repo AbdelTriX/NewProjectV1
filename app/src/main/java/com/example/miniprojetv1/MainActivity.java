@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button btnLoadUsers;
     TextView tvQuit;
     ListView lvUsers;
+    ProgressBar progressBar;
     @SuppressLint("ClickableViewAccessibility")
 
     @Override
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnLoadUsers = findViewById(R.id.btnLoadUsers);
         tvQuit = findViewById(R.id.tvQuit);
         lvUsers = findViewById(R.id.lvUsers);
+        progressBar = findViewById(R.id.progressBar);
 
         tvQuit.setOnClickListener(this);
         btnLoadUsers.setOnClickListener(this);
@@ -61,10 +65,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnLoadUsers) {
-            UsersAdapter usersAdapter = new UsersAdapter(this, getUsers());
+            // Show ProgressBar
+            progressBar.setVisibility(View.VISIBLE);
 
-            lvUsers.setAdapter(usersAdapter);
+            // Delay for 2 seconds before loading the users
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    // Load users
+                    UsersAdapter usersAdapter = new UsersAdapter(MainActivity.this, getUsers());
+                    lvUsers.setAdapter(usersAdapter);
 
+                    // Hide ProgressBar after loading the users
+                    progressBar.setVisibility(View.GONE);
+                }
+            }, 1000); // 2 seconds delay
         } else if (v.getId() == R.id.tvQuit) {
             finish();
         }
